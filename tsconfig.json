@@ -1,0 +1,33 @@
+{
+  "compilerOptions": {
+    "paths": {
+      "*": ["./src/*"]
+    },
+    "types": ["node", "jest"],
+    "module": "commonjs",
+    "target": "es2019",
+    "baseUrl": "./",
+    "incremental": true,
+    "allowSyntheticDefaultImports": true,
+    "noImplicitAny": true,
+    "strictNullChecks": true,
+    "noFallthroughCasesInSwitch": true,
+    "noImplicitThis": true,
+    "noImplicitReturns": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "noImplicitUseStrict": false,
+    "forceConsistentCasingInFileNames": true,
+    "traceResolution": false,
+    "listFiles": false,
+    "stripInternal": true,
+    "skipDefaultLibCheck": true,
+    "skipLibCheck": false,
+    "pretty": true,
+    "noEmitOnError": false,
+    "esModuleInterop": true,
+    "preserveConstEnums": true
+  },
+  "include": ["src"],
+  "exclude": ["node_modules/**/*"]
+}
