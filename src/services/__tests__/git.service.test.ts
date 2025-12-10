@@ -132,5 +132,39 @@ ghi789|||Author Three|||DMAP-1235 Add feature`;
       expect(result.commits).toHaveLength(0);
       expect(result.commitsWithoutTickets).toHaveLength(0);
     });
+
+    it('should extract multiple tickets from single commit message', () => {
+      const mockCommits = `abc123|||Author One|||DMAP-1234 DMAP-1235 DMAP-1236: Fix multiple issues`;
+
+      mockExecSync.mockImplementation(() => mockCommits);
+
+      const result = gitService.getTicketsFromRepositories(
+        ['/path/to/repo'],
+        ['v1.0.0'],
+        ['v1.1.0']
+      );
+
+      expect(result.ticketNumbers).toEqual([
+        'DMAP-1234',
+        'DMAP-1235',
+        'DMAP-1236',
+      ]);
+      expect(result.commits).toHaveLength(1);
+    });
+
+    it('should extract all tickets from commit with mixed content', () => {
+      const mockCommits = `abc123|||Author One|||PROJ-123 TASK-456: Implement feature and fix BUG-789`;
+
+      mockExecSync.mockImplementation(() => mockCommits);
+
+      const result = gitService.getTicketsFromRepositories(
+        ['/path/to/repo'],
+        ['v1.0.0'],
+        ['v1.1.0']
+      );
+
+      expect(result.ticketNumbers).toEqual(['PROJ-123', 'TASK-456', 'BUG-789']);
+      expect(result.commits).toHaveLength(1);
+    });
   });
 });

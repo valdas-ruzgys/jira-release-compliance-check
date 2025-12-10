@@ -8,8 +8,7 @@ export interface ParsedCommit {
   author?: string;
 }
 
-const TICKET_REGEX =
-  /((?!([A-Z0-9a-z]{1,10})-?$)[A-Z]{1}[A-Z0-9]+-[1-9][0-9]*)/;
+const TICKET_REGEX = /[A-Z]{2,10}-[1-9][0-9]*/g;
 
 export interface GitServiceOptions {
   excludePattern: string;
@@ -96,8 +95,7 @@ export class GitService {
         return;
       }
 
-      // Extract all ticket numbers from the full commit message
-      const matches = commit.message.match(new RegExp(TICKET_REGEX, 'g'));
+      const matches = commit.message.match(TICKET_REGEX);
 
       if (matches) {
         // Filter out excluded patterns
